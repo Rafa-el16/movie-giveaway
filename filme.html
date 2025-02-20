@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteio de Filme</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #222;
+            color: white;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .genres {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff6600;
+            color: white;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #cc5200;
+        }
+        .roulette {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sorteio de Filme</h1>
+        <div class="genres">
+            <button onclick="startRoulette('acao')">🎬 Ação</button>
+            <button onclick="startRoulette('comedia')">😂 Comédia</button>
+            <button onclick="startRoulette('terror')">👻 Terror</button>
+            <button onclick="startRoulette('suspense')">🔎 Suspense</button>
+            <button onclick="startRoulette('drama')">🎭 Drama</button>
+            <button onclick="startRoulette('romance')">❤️ Romance</button>
+        </div>
+        <div class="roulette" id="roulette">Escolha um gênero para sortear um filme!</div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const filmes = {
+                acao: ["Jogos vorazes", "O cavaçeiro sem cabeça", "Os vingadores", "Velozes e furiosos", "Duro de matar","Gladiador", "Venon: A ultima rodada", "Ocean's 8", "Constantine", "Megatubarão 2"],
+                comedia: ["Tudo em todo lugar ao mesmo tempo", "Free Guy", "Gente Grande", "Se Beber, Não Case", "Mulheres ao ataque", "Curtindo a vida a doidado", "A proposta","Todos menos você", "Amor a toda prova", "Todo mundo em pânico"],
+                terror: ["O Iluminado", "Mindsommar", "Rua do medo 2", "A entidade", "Os estranhos", "Garota infernal", "Terror em Amytiville","Rogai por nós", "Alice no país das trevas", "O ritual"],
+                suspense:["Fragmentado", "Escape room", "Maze runner", "Não se preocupe querida", "Mistério no mediterrâneo", "Premonição","Efeito borboleta", "Paranóia", "Ilha do medo","cisne Negro"],      
+                drama:["O lado bom de ser traída", "Todo tempo que temos", "Fabricante de lágrima", "After","Uma ideia de você", "O silêncio dos inocentes","A espera de um milagre","Intocáveis","Até o ultimo homem","Clube da luta"],
+                romance:["É assim que acaba", "Para todos os garotos que ja amei", "Todos menos você", "Simplesmente acontece", "10 coisas que odeio em você", "O melhor de você", "Um amor para recordar","Todo tempo que temos", "Diário de uma paixão", "Ainda estou aqui","Amor e outras drogas"]
+                };
+
+            window.startRoulette = function(genero) {
+                const roulette = document.getElementById("roulette");
+                let filmesDoGenero = filmes[genero];
+                let index = 0;
+                let tempo = 50;
+                let intervalo = setInterval(() => {
+                    roulette.innerText = filmesDoGenero[index];
+                    index = (index + 1) % filmesDoGenero.length;
+                }, tempo);
+                
+                setTimeout(() => {
+                    clearInterval(intervalo);
+                    let filmeSorteado = filmesDoGenero[Math.floor(Math.random() * filmesDoGenero.length)];
+                    roulette.innerText = `🎬 ${filmeSorteado}`;
+                }, 3000);
+            };
+        });
+    </script>
+</body>
+</html>
